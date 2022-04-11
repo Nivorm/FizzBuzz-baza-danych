@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Http;
 using FizzBuzzWeb.Data;
 using FizzBuzzWeb.Models;
+using Newtonsoft.Json;
 
 namespace FizzBuzzWeb.Pages;
 
@@ -17,20 +19,34 @@ public class IndexModel : PageModel
         _context = context;
     }
 
-    public IList<Person> People { get; set; }
+    public List<Person> People { get; set; }
+
+    public List<Person> PeopleData = new();
 
     [BindProperty]
     public Person Person { get; set; }
     public IActionResult OnPost()
     {
-        People = _context.Person.ToList();
-        if (!ModelState.IsValid)
+        if (ModelState.IsValid)
         {
+            People = _context.Person.ToList();
+            Person.Date = DateTime.Now;
+            
+
+            var data = HttpContext.Session.GetString("data");
+            if (data != null)
+            
+                PeopleData = JsonConvert.DeserializeObject<List<Person>>(data);
+            
+            PeopleData.Add(Person);
+            People.Add(Person);
+            HttpContext.Session.SetString("data", JsonConvert.SerializeObject(PeopleData));
+            
+            _context.Person.Add(Person);
+            _context.SaveChanges();
             return Page();
         }
-        _context.Person.Add(Person);
-        _context.SaveChanges();
-        return RedirectToPage("./Index");
+        return Page();
     }
     public void OnGet()
     {

@@ -1,16 +1,18 @@
 ﻿@page
-@model IndexModel
+@model FizzBuzzWeb.Pages.People.CreateModel
+
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Create";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Create</h1>
 
-<form method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<h4>Person</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Person.FirstName" class="control-label"></label>
                 <input asp-for="Person.FirstName" class="form-control" />
@@ -34,19 +36,14 @@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-            <h1>Z BAZY DANYCH</h1>
-            @foreach (var item in Model.People)
-{
-<p>@item.FirstName, @item.LastName, @item.Year </p>
+        </form>
+    </div>
+</div>
 
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-<br />ZAPISANE W SESJI
-@if(Model.PeopleData != null)          
-@foreach (var item in Model.PeopleData)
-{
-<p>@item.FirstName, @item.LastName, @item.Year</p>
-
-}
-
-</form>
-
