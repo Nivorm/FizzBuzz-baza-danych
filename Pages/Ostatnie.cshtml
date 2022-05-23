@@ -1,0 +1,31 @@
+﻿@page
+@model IndexModel
+@{
+}
+<h1>Ostatnio szukane</h1>
+@foreach (var item in Model.People)
+{
+<p>
+    <table>
+        <tr>
+            <td>
+                @item.FirstName
+            </td>
+            <td>
+                @item.LastName
+            </td>
+            <td>
+                @item.Year
+            </td>
+            <td>
+                @item.Date
+            </td>
+            <td>
+                <!--<a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |-->
+                <a asp-page="/People/Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="/People/Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    </table> </p>
+
+}

@@ -29,6 +29,7 @@ public class IndexModel : PageModel
     {
         if (ModelState.IsValid)
         {
+
             People = _context.Person.ToList();
             Person.Date = DateTime.Now;
             
@@ -41,7 +42,8 @@ public class IndexModel : PageModel
             PeopleData.Add(Person);
             People.Add(Person);
             HttpContext.Session.SetString("data", JsonConvert.SerializeObject(PeopleData));
-            
+
+            Person.CheckIfLeapYear();
             _context.Person.Add(Person);
             _context.SaveChanges();
             return Page();

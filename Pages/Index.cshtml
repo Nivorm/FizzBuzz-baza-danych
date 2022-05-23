@@ -27,26 +27,37 @@
                 <span asp-validation-for="Person.Year" class="text-danger"></span>
             </div>
             <!--<div class="form-group">
+                <label asp-for="Person.Result" class="control-label"></label>
+                <input asp-for="Person.Result" class="form-control" />
+                <span asp-validation-for="Person.Result" class="text-danger"></span>
+            </div>-->
+            <!--<div class="form-group">
                 <label asp-for="Person.Date" class="control-label"></label>
                 <input asp-for="Person.Date" class="form-control" />
                 <span asp-validation-for="Person.Date" class="text-danger"></span>
             </div>-->
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Send" class="btn btn-primary" />
             </div>
-            <h1>Z BAZY DANYCH</h1>
-            @foreach (var item in Model.People)
-{
-<p>@item.FirstName, @item.LastName, @item.Year </p>
+            
 
-}
-<br />ZAPISANE W SESJI
-@if(Model.PeopleData != null)          
-@foreach (var item in Model.PeopleData)
-{
-<p>@item.FirstName, @item.LastName, @item.Year</p>
 
-}
+    @if (Model.Person != null)
+    {
+        @if (Model.Person.IsLeapYear)
+        {
+            <br><span>@Model.Person.FirstName urodził się w roku przestepnym</span>
+        } 
+        else
+        {
+            <br><span>@Model.Person.FirstName urodził się w roku nieprzestepnym</span>
+        }
+        <br /><h4>Ostatnie wyniki</h4>
+        @foreach (var item in Model.PeopleData)
+        {
+            <p>@item.FirstName @item.LastName @item.Year</p>
 
+        }
+    }
 </form>
 

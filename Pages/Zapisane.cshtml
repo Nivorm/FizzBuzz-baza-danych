@@ -1,0 +1,12 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Data in session";
+}
+
+@if(Model.PeopleData != null)          
+@foreach (var item in Model.PeopleData)
+{
+<p>@item.FirstName, @item.LastName, @item.Year</p>
+
+}
